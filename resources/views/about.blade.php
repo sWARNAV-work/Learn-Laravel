@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>The aaaaaaaBOOOOOUT Page</h1>
-    
+<x-layout title="About Me">
+
+    <h1>About</h1>
+    <p>The aaaaaaaBOOOOOUT Page</p>
+
+    <hr>
+
     <div>
-        <a href="/">Get Back to the Base, Sergeant!</a>
+        <a href="/"><small>Get Back to the Base, Sergeant! (Home)</small></a>
     </div>
-</body>
-</html>
+
+</x-layout>
