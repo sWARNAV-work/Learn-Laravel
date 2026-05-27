@@ -19,11 +19,11 @@
     </form>
 
     <div class="text-white">
-        @if ($ideas)
+        @if ($ideas->count())
             <h1 class="text-indigo-600">Notes</h1>
             <ol class="mt-4">
                 @foreach($ideas as $idea)
-                    <li>{{ $idea }}</li>
+                    <li>{{ $idea->description }}</li>
                 @endforeach
             </ol>
         @endif

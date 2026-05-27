@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-    $ideas = session()->get('ideas');
+    // $ideas = session()->get('ideas');
+    $ideas = DB::table('ideas')->get(); //Using facades to call database
     return view("ideas", [
         'ideas' => $ideas
    ]);
