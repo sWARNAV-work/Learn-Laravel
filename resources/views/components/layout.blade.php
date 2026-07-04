@@ -35,7 +35,7 @@
 
 <body class="bg-black p-6 max-w-xl mx-auto">
     <nav>
-        <a href="/">Home</a>
+        <a href="/ideas">Home</a>
         <a href="/about">The About</a>
         <a href="/contact">The Contacts</a>
     </nav>
