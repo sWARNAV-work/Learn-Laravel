@@ -1,98 +1,38 @@
 <?php
 
+use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 // use Illuminate\Support\Facades\DB;
 use App\Models\Idea;
 
-/* =========================================
-   Index of Notes(All Notes)
-   =========================================
-*/
-Route::get('/ideas', function ()
-{
-    // $ideas = session()->get('ideas');
-    // $ideas = DB::table('ideas')->get();                                           //Using facades to call database
-    // $ideas = Idea::query()->when(request('state'), function ($query, $state)      //Using Eloqeunt to call Database
-    // {
-    //     $query->where('state', $state);
-    // })->get();
-
-    $ideas = Idea::all();
-    return view("ideas/index", [
-        'ideas' => $ideas
-    ]);
-});
-/* =END= */
-
-/* =========================================
-   Showing one Note
-   =========================================
-*/
-Route::get('/ideas/{idea}', function (Idea $idea)
-{
-
-    // $idea = Idea::findOrFail($id); Laravel very smart. It can easily identify things like this just by type casting the eloquent mode in the parameters.
-
-    // if(is_null($idea))           //This can be shortened thanks to laravel. The shortened is findOrFail() used above. 
-    //     abort(404);
-
-
-    return view("ideas.show", [     //Same as "ideas/show", and is more commonly used. 
-        'idea' => $idea
-    ]);
-});
-/* =END= */
-
-/* =========================================
-   Editing a Note
-   =========================================
-*/
-Route::get('/ideas/{idea}/edit', function ( Idea $idea) {
-
-    return view("ideas.edit", [     //Same as "ideas/show", and is more commonly used. 
-        'idea' => $idea
-    ]);
-});
-/* =END= */
-
-/* =========================================
-   Updating the Note
-   =========================================
-*/
-Route::patch('ideas/{idea}', function ( Idea $idea){
-    $idea->update([
-        'description' => request('description')
-    ]);
-    return redirect("/ideas/{$idea->id}");
-});
-/* =END= */
-
-/* =========================================
-   Deleting a note
-   =========================================
-*/
-Route::delete('ideas/{idea}', function ( Idea $idea){
-    $idea->delete();
-
-    return redirect('/ideas');
-});
-/* =END= */
+Route::get('/ideas', [IdeaController::class, 'index']);
+Route::get('/ideas/create', [IdeaController::class, 'create']);
+Route::get('/ideas/{idea}', [IdeaController::class, 'show']);
+Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit']);
+Route::patch('ideas/{idea}', [IdeaController::class, 'update']);
+Route::delete('ideas/{idea}', [IdeaController::class, 'destroy']);
+Route::post('/ideas', [IdeaController::class, 'store']); 
+   
 
 
 
-Route::post('/ideas', function ()
-{
-    $idea = request('description');
-    //    session()->push('ideas', $idea); // Using Session to persist data
-    //    $ideas = session()->get('ideas');
 
-    Idea::create([
-        'description' => $idea,
-        'state' => "pending"
-    ]);
-    return redirect('/ideas');
 
-});
+
+
+//This was used to store data and persist it, In other words, this was used to save the data into the database as well as redirect to the homepage. 
+// $idea = request('description');
+    // //    session()->push('ideas', $idea); // Using Session to persist data
+    // //    $ideas = session()->get('ideas');
+
+
+    // Idea::create([
+    //     'description' => $idea,
+    //     'state' => "pending"
+    // ]);
+    // return redirect('/ideas');
+
+
 
 
 
