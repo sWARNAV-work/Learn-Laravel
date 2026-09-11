@@ -3,7 +3,7 @@
 ])
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme='dracula'>
 
 <head>
     <meta charset="UTF-8">
@@ -29,18 +29,23 @@
             text-align: center;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
 
 </head>
 
-<body class="bg-black p-6 max-w-xl mx-auto">
+<!-- <body class="bg-black p-6 max-w-xl mx-auto">
     <nav>
         <a href="/ideas">Home</a>
         <a href="/about">The About</a>
         <a href="/contact">The Contacts</a>
-    </nav>
+    </nav> -->
 
-    <main>
+    <x-nav />
+
+
+    <main class="max-w-3xl mx-auto">
         {{ $slot }}
     </main>
 
