@@ -35,7 +35,7 @@
     -->
     <form id="delete-a-form" method="POST" action="/ideas/{{ $idea->id }}">
         @csrf
-        @method('DELETE');
+        @method('DELETE')
     </form>
     <!-- =END= -->
 

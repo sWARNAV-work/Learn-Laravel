@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->redirectGuestsTo('/login'); //Can change the redirect to point anywhere we want. 
+        $middleware->redirectUsersTo('/ideas'); // This works for both?? Prolly not. 
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
