@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IdeaRequest;
 use App\Models\Idea;
+use App\Models\User;
+use Illuminate\Foundation\Http\Attributes\RedirectTo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class IdeaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         // $ideas = session()->get('ideas');
         // $ideas = DB::table('ideas')->get();                                           //Using facades to call database
@@ -21,11 +25,13 @@ class IdeaController extends Controller
         //     $query->where('state', $state);
         // })->get();
 
-        $ideas = Idea::query()->where([
-            'user_id' => Auth::id()
-        ])->get();
+
+        // $ideas = Idea::query()->where([                                                //Redundant, since the emergence of belongsTo & hasMany,
+        //     'user_id' => Auth::id()                                                    //which allows the use of the direct call, that has been
+        // ])->get();                                                                     //inlined.
+
         return view("ideas/index", [
-            'ideas' => $ideas
+            'ideas' => Auth::user()->ideas
         ]);
     }
 
@@ -40,7 +46,7 @@ class IdeaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(IdeaRequest $request)
+    public function store(IdeaRequest $request): RedirectResponse
     {
         //This $request parses the entire POST data. 
 
@@ -48,10 +54,17 @@ class IdeaController extends Controller
         //     'description' => ['required', 'min:10']
         // ]);
 
-        Idea::create([
+        // Idea::create([
+        //     'description' => $request['description'],
+        //     'state' => "pending",
+        //     'user_id' => Auth::id()
+        // ]);
+
+        /** @var User $user */                  //This helps clear the confusion of the editor, that couldn't find the ideas()
+        $user=Auth::user();
+        $user->ideas()->create([
             'description' => $request['description'],
-            'state' => "pending",
-            'user_id' => Auth::id()
+            'state' => 'pending',
         ]);
         return redirect('/ideas');
     }
